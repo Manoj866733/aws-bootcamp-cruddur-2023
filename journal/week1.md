@@ -168,7 +168,7 @@ Then added a command to confirm the client for postgres.
 
 ## Challenges Faced
 
-I was not getting the endpoint in the browser. getting 404 error
+While creating a dockerfile for backend. I was not getting the endpoint in the browser. I was getting a 404 error.
 ![image](https://user-images.githubusercontent.com/100923201/222443147-f10724a0-861b-4421-98df-f26a4dad1955.png)
 
 * I made few mistakes in the naming like for activities i wrote activity and for Notifications i wrote notification.
@@ -177,36 +177,41 @@ I was not getting the endpoint in the browser. getting 404 error
 * Added **/api/activities/home** in the URL and now I got the endpoint of backend.
 ![image](https://user-images.githubusercontent.com/100923201/222443444-6fd55c67-1d89-44d9-8a64-9f189e0af27b.png)
 
-* I was not getting messages notifications tab in cuddr app. 
-I signed in to my account and now I can see the notification tab in cuddr
+* While creating the notification, I was not getting the notifications tab in cuddr app. The UI seems to be incomplete.  
+* Then, I signed in to my account and now I can see the notification tab in cuddr
 ![image](https://user-images.githubusercontent.com/100923201/222444633-a2911861-b402-43ff-8cef-22cf96ca8da7.png)
 
 
-* The main issue I faced during week 1 homework challenge was I'm unable to connect to the postgres database. The connection type says its successfull but not getting the details in database section. Please find the attached image for your references.
+* The major issue I faced during week 1 homework challenge was I'm unable to connect to the postgres database. I have installed postgres extension and the connection type says its successfull but I'm not getting the details in database explorer section. The tables and data were missing from the database explorer section, 
+Please find the attached image for your references.
+
 ![image](https://user-images.githubusercontent.com/100923201/222445423-70d4abb8-5bd1-4386-b642-c45f019d6c93.png)
 
-Troubleshooting steps are, I stopped docker and uninstall postgres extension. I restarted the gitpod account and docker compose up. Opened all the ports and installed postgres extension again. Added the extension in to our gitpod.yml file. Then went to database explorer extension and select new connection, This time it was successfull, I can now see the postgres database. 
+
+Troubleshooting steps are, I stopped the docker-compose.yml file and uninstall postgres extension. I restarted the gitpod account and initiated docker compose up. Opened all the ports and installed postgres extension again. Added the extension in to our gitpod.yml file. Then went to database explorer extension and select new connection, This time it was successfull, I can now see the postgres database. 
 
 ![output final](https://user-images.githubusercontent.com/100923201/222446826-edd46132-0c64-404a-b6c3-2bc756e10756.jpg)
 
 
-Definition of terms
-Containerization:
+
+
+# Definition of terms #
+### Containerization: ###
 Containerization is a way of packaging software applications and their dependencies into a standalone, portable unit called a container. Containers provide a consistent and isolated environment for applications to run in regardless of the underlying infrastructure. This means that applications can be easily moved between different environments, such as from a developer's laptop to a test environment or a production server, without the need for additional configuration or setup.
 
-Container:
+### Container: ###
 Container is a standard unit of software that packages application codes and its dependencies into a single object. It is a layer of images with a linux baseline.
 
-dockerhub:
+### dockerhub: ###
 It is a container registry provided by docker where we can host our own container images or we can also share our container images.
 
-Package Manager:
+### Package Manager: ###
 A package manager is a tool that automates the process of installing, upgrading, configuring, and removing software packages. It manages the dependencies between packages, ensuring that all required software is installed and configured correctly. Package managers are used to simplify the installation and management of software on a system.
 
-Docker:
+### Docker: ###
 Docker is a PAAS product that uses OS-level virtualization to deliver software in packages called containers. It is a software platform that simplifies the process of building, running, managing and distributing applications.
 
-Dockerfile:
+### Dockerfile: ###
 A Dockerfile is a text file that contains instructions for building a Docker image. An image is a packaged, standalone executable software package that includes everything needed to run an application, including the application code, libraries, and other dependencies. The Dockerfile provides a set of instructions for the Docker engine to create an image. It contains information such as what base image to use, what software packages to install, what files to copy into the image, and what commands to run. The Dockerfile can also set environment variables and define other configuration options. Once the Dockerfile is created, it can be used to build an image using the Docker build command. The resulting image can then be used to create and run containers that contain the application. Overall, a Dockerfile is a way to automate the creation of Docker images, making it easier to manage and deploy applications in containers.
 
 
