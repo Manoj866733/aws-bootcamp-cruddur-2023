@@ -1,0 +1,16 @@
+[
+  {
+      "Notification": {
+          "ComparisonOperator": "GREATER_THAN",
+          "NotificationType": "ACTUAL",
+          "Threshold": 5,
+          "ThresholdType": "PERCENTAGE"
+      },
+      "Subscribers": [
+          {
+              "Address": "manojkumar.r658@gmail.com",
+              "SubscriptionType": "EMAIL"
+          }
+      ]
+  }
+]
