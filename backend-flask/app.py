@@ -170,12 +170,12 @@ def data_home():
     # authenicatied request
     app.logger.debug("authenicated")
     app.logger.debug(claims)
+    data = HomeActivities.run()
   except TokenVerifyError as e:
      # unauthenicatied request
+     app.logger.debug(e)
      app.logger.debug("unauthenicated")
-
-  data = HomeActivities.run()
-
+     data = HomeActivities.run()
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
