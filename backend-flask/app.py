@@ -14,7 +14,7 @@ from services.messages import *
 from services.create_message import *
 from services.show_activity import *
 
-from lib.cognito_token_verfication import CognitoTokenVertification 
+from lib.cognito_Jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
 
 # HoneyComb ---------
 from opentelemetry import trace
@@ -69,7 +69,7 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 
-cognito_token_verfication = CognitoTokenVertification(
+cognito_jwt_token = CognitoJwtToken(
   user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
   user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
   region=os.getenv("AWS_DEFAULT_REGION")
@@ -164,7 +164,18 @@ def data_create_message():
 @app.route("/api/activities/home", methods=['GET'])
 @xray_recorder.capture('activities_home')
 def data_home():
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    # authenicatied request
+    app.logger.debug("authenicated")
+    app.logger.debug(claims)
+  except TokenVerifyError as e:
+     # unauthenicatied request
+     app.logger.debug("unauthenicated")
+
   data = HomeActivities.run()
+
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
