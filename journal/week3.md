@@ -33,3 +33,13 @@ Using the Amazon Console, I was able to create a user-pool with the following st
 *$ npm i aws-amplify --save
 
 2. Then we need to add Env Vars in the docker-compose.yml file:
+
+<p>frontend-react-js:
+   environment:
+      REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_*******"
+      REACT_APP_CLIENT_ID: "*********************"</p>
+      
+      
+      
