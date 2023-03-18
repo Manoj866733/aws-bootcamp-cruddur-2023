@@ -269,7 +269,7 @@ if (errors) {
 
 ![homepage](https://user-images.githubusercontent.com/100923201/226104782-502ac73f-80a2-4997-84e4-23bb43d2cdbe.png)
 
-# Autheticated in debug
+## Authenticated  in debug
 
 ![Screenshot 2023-03-17 234951](https://user-images.githubusercontent.com/100923201/226104799-cb595bad-bf0e-4fee-a23d-0ff805c637e0.png)
 
