@@ -4,11 +4,24 @@ import os
 class Db:
   def _init_(self):
     self.init_pool()
-    
-  def init_pool():  
+
+  def init_pool(self):  
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
-  def query_commit():
+  # we want to commit data such as insert
+  def query_commit_returning_id(self,sql,*args):
+    print("SQL STATEMENT-[commit with returning]---------")
+    try:
+      conn = self.pool.connection()
+      cur = conn.cursor()
+      cur.execute(sql,*args)
+      returning_id = cur.fetchone()[0]
+      conn.commit()
+      return returning_id
+    except Exception as err:
+      self.print_sql_err(err)
+  def query_commit(self,sql):
+    print("SQL STATEMENT-[commit]---------")
     try:
       conn = self.pool.connection()
       cur = conn.cursor()
@@ -17,7 +30,42 @@ class Db:
     except Exception as err:
       self.print_sql_err(err)
       #conn.rollbar()
-  def print_psycopg2_exception(err):
+  # when we want to return an json object
+  def query_array_json(self,sql):
+    print("SQL STATEMENT-[array]---------")
+    print(sql + "\n")
+    wrapped_sql = self.query_wrap_array(sql)
+    with self.pool.connection() as conn:
+      with conn.cursor() as cur:
+        cur.execute(wrapped_sql)
+        json = cur.fetchone()
+        return json[0]
+  # when we want to return array of json objects
+  def query_object_json(self,sql):
+    print("SQL STATEMENT-[object]---------")
+    print(sql + "\n")
+    wrapped_sql = self.query_wrap_object(sql)
+    with self.pool.connection() as conn:
+      with conn.cursor() as cur:
+        cur.execute(wrapped_sql)
+        json = cur.fetchone()
+        return json[0]
+
+  def query_wrap_object(self,template):
+    sql = f"""
+    (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
+    {template}
+    ) object_row);
+    """
+    return sql
+  def query_wrap_array(self,template):
+    sql = f"""
+    (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
+    {template}
+    ) array_row);
+    """
+    return sql
+  def print_psycopg2_exception(self,err):
     # get details about the exception
     err_type, err_obj, traceback = sys.exc_info()
 
@@ -34,18 +82,5 @@ class Db:
     # print the pgcode and pgerror exceptions
     print ("pgerror:", err.pgerror)
     print ("pgcode:", err.pgcode, "\n")
-  def query_wrap_object(template):
-    sql = f"""
-    (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
-    {template}
-    ) object_row);
-    """
-    return sql
-  def query_wrap_array(template):
-    sql = f"""
-    (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
-    {template}
-    ) array_row);
-    """
-    return sql
+
 db = Db()    

@@ -1,7 +1,8 @@
 import uuid
 from datetime import datetime, timedelta, timezone
 
-from lib.db import query_commit, print_sql_err
+# from lib.db import db
+
 class CreateActivity:
   def run(message, user_handle, ttl):
     model = {
@@ -61,9 +62,14 @@ class CreateActivity:
       expires_at
     )
     VALUES (
-      "(user_uuid)",
-      "(message)",
-      "(expires_at)"
-    )
+      %s,
+      %s,
+      %s
+    ) RETURNING uuid;
     """
-    query_commit(sql)
+    uuid = db.query_commit_returning_id(sql,
+      user_uuid,
+      message,
+      expires_at
+      )
+  #def query_object_activity():
