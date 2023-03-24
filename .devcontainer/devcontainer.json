@@ -1,5 +1,5 @@
 {
-	"name": "Existing Docker Compose (Extend)",
+	"name": "Cruddur Configuration",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -13,15 +13,19 @@
 				"ms-azuretools.vscode-docker",
 				"ms-python.python",
 				"vscodevim.vim"
-			]
+			],
+			"settings": {
+				"terminal.integrated.fontSize": 20,
+				"editor.fontSize": 20,
+				"workbench.colorTheme": "Default Dark+ Experimental"
+			}
 		}
-	}
+		
 
+
+	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
-	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
